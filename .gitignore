@@ -1,0 +1,7 @@
+##ignore this file##
+/target/ 
+/detectApp/
+/out/
+/target/
+/.idea/
+*.iml
