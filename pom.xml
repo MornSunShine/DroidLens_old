@@ -53,7 +53,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>it.unisa.aDoctor.ui.MainUI</mainClass>
+                            <mainClass>it.codeSmell.aDoctor.ui.MainUI</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
