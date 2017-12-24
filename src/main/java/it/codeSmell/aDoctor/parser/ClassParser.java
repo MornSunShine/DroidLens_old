@@ -20,9 +20,6 @@ import java.util.regex.Pattern;
  * Description:
  */
 public class ClassParser {
-    public ClassParser() {
-    }
-
     public static ClassBean parse(TypeDeclaration pClassNode) {
         int numberOfGetterOrSetter = 0;
         ClassBean classBean = new ClassBean();
@@ -52,7 +49,7 @@ public class ClassParser {
 
         for (MethodDeclaration methodNode : methodNodes) {
             if ((methodNode.getName().toString().contains("get") || methodNode.getName().toString().contains("set")) && methodNode.parameters().isEmpty()) {
-                ++numberOfGetterOrSetter;
+                numberOfGetterOrSetter++;
             }
             methodBeans.add(MethodParser.parse(methodNode, instanceVariableBeans));
         }
@@ -69,7 +66,7 @@ public class ClassParser {
         if (pClassNode.getSuperclassType() != null) {
             classBean.setSuperclass(pClassNode.getSuperclassType().toString());
         } else {
-            classBean.setSuperclass((String) null);
+            classBean.setSuperclass(null);
         }
 
         classBean.setName(pClassNode.getName().toString());
@@ -94,7 +91,7 @@ public class ClassParser {
 
         for (MethodDeclaration methodNode : methodNodes) {
             if ((methodNode.getName().toString().contains("get") || methodNode.getName().toString().contains("set")) && methodNode.parameters().isEmpty()) {
-                ++numberOfGetterOrSetter;
+                numberOfGetterOrSetter++;
             }
             methodBeans.add(MethodParser.parse(methodNode, instanceVariableBeans));
         }
@@ -106,16 +103,11 @@ public class ClassParser {
     }
 
     private static MethodBean isInto(MethodBean pClassMethodInvocation, Collection<MethodBean> pMethodBeans) {
-        Iterator it = pMethodBeans.iterator();
-
-        MethodBean methodBean;
-        do {
-            if (!it.hasNext()) {
-                return null;
+        for (MethodBean methodBean : pMethodBeans) {
+            if (methodBean.getName().equals(pClassMethodInvocation.getName())) {
+                return methodBean;
             }
-            methodBean = (MethodBean) it.next();
-        } while (!methodBean.getName().equals(pClassMethodInvocation.getName()));
-
-        return methodBean;
+        }
+        return null;
     }
 }

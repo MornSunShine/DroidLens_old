@@ -16,9 +16,6 @@ import java.util.List;
 public class ForStatementVisitor extends ASTVisitor {
     private final List<ForStatement> forStatements = new ArrayList();
 
-    public ForStatementVisitor() {
-    }
-
     public boolean visit(ForStatement node) {
         this.forStatements.add(node);
         return super.visit(node);

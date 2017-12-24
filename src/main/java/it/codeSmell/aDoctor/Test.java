@@ -3,6 +3,7 @@ package it.codeSmell.aDoctor;
 import it.codeSmell.aDoctor.ui.SmellData;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -48,13 +49,10 @@ public class Test {
     }
 
     public static void main(String[] args){
-//        Test test=new Test();
-//        test.test();
-        String row="cvbcvbDocumentB1uilderFactory123123DocumentBuilderNodeList";
-        Pattern regex = Pattern.compile("(DocumentBuilderFactory|DocumentBuilder|NodeList)");
-        Matcher regexMatcher = regex.matcher(row);
-        if(regexMatcher.find()){
-            System.out.println("asdas");
+        ArrayList<Object> data=new ArrayList<>();
+        for(int i=0;i<5;i++){
+            data.add("a");
         }
+        System.out.println(data.get(0).equals("a"));
     }
 }

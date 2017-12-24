@@ -16,7 +16,6 @@ public class FileUtilities {
         InputStreamReader isr = null;
         StringBuilder sb = new StringBuilder();
         char[] buf = new char[1024];
-
         try {
             InputStream is = new FileInputStream(nomeFile);
             isr = new InputStreamReader(is);
@@ -25,14 +24,11 @@ public class FileUtilities {
             while ((len = isr.read(buf)) > 0) {
                 sb.append(buf, 0, len);
             }
-
-            String var6 = sb.toString();
-            return var6;
+            return sb.toString();
         } finally {
             if (isr != null) {
                 isr.close();
             }
-
         }
     }
 
@@ -41,18 +37,15 @@ public class FileUtilities {
         String toReturn = "";
         Pattern newLine = Pattern.compile("\n");
         String[] lines = newLine.split(srcMLstring);
-        String[] var7 = lines;
-        int var8 = lines.length;
 
-        for (int var9 = 0; var9 < var8; ++var9) {
-            String line = var7[var9];
+        for (String line : lines) {
             if (line.contains(start)) {
-                ++countClass;
+                countClass++;
                 toReturn = toReturn + line;
             }
 
             if (line.contains(end)) {
-                --countClass;
+                countClass--;//该处存在疑问
                 toReturn = toReturn + line;
                 if (countClass == 0) {
                     return toReturn;
@@ -61,7 +54,6 @@ public class FileUtilities {
                 toReturn = toReturn + line;
             }
         }
-
         return null;
     }
 
@@ -70,13 +62,8 @@ public class FileUtilities {
             if (!dstPath.exists()) {
                 dstPath.mkdir();
             }
-
             String[] files = srcPath.list();
-            String[] var4 = files;
-            int var5 = files.length;
-
-            for (int var6 = 0; var6 < var5; ++var6) {
-                String file = var4[var6];
+            for (String file : files) {
                 this.copyDirectory(new File(srcPath, file), new File(dstPath, file));
             }
         } else if (!srcPath.exists()) {
@@ -84,90 +71,43 @@ public class FileUtilities {
             System.exit(0);
         } else {
             InputStream in = new FileInputStream(srcPath);
-            Throwable var19 = null;
 
-            FileOutputStream out;
-            try {
-                out = new FileOutputStream(dstPath);
-                byte[] buf = new byte[1024];
+            FileOutputStream out = new FileOutputStream(dstPath);
+            byte[] buf = new byte[1024];
 
-                int len;
-                while ((len = in.read(buf)) > 0) {
-                    out.write(buf, 0, len);
-                }
-            } catch (Throwable var15) {
-                var19 = var15;
-                throw var15;
-            } finally {
-                if (in != null) {
-                    if (var19 != null) {
-                        try {
-                            in.close();
-                        } catch (Throwable var14) {
-                            var19.addSuppressed(var14);
-                        }
-                    } else {
-                        in.close();
-                    }
-                }
-
+            int len;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
             }
-
+            in.close();
             out.close();
         }
-
         System.out.println("Directory copied.");
     }
 
     public static boolean DelDir(File dir) {
         if (dir.isDirectory()) {
-            String[] contenuto = dir.list();
-            String[] var2 = contenuto;
-            int var3 = contenuto.length;
-
-            for (int var4 = 0; var4 < var3; ++var4) {
-                String contenuto1 = var2[var4];
-                boolean success = DelDir(new File(dir, contenuto1));
+            String[] dirList = dir.list();
+            for (String subList : dirList) {
+                boolean success = DelDir(new File(dir, subList));
                 if (!success) {
                     return false;
                 }
             }
         }
-
         return dir.delete();
     }
 
     public static void writeFile(String pContent, String pPath) {
         File file = new File(pPath);
-
         try {
-            FileWriter fstream = new FileWriter(file);
-            BufferedWriter out = new BufferedWriter(fstream);
-            Throwable var5 = null;
-
-            try {
-                out.write(pContent);
-            } catch (Throwable var15) {
-                var5 = var15;
-                throw var15;
-            } finally {
-                if (out != null) {
-                    if (var5 != null) {
-                        try {
-                            out.close();
-                        } catch (Throwable var14) {
-                            var5.addSuppressed(var14);
-                        }
-                    } else {
-                        out.close();
-                    }
-                }
-
-            }
-        } catch (IOException var17) {
-            System.err.println("Error: " + var17.getMessage());
+            FileWriter fStream = new FileWriter(file);
+            BufferedWriter out = new BufferedWriter(fStream);
+            out.write(pContent);
+            out.close();
+        } catch (IOException e) {
+            System.err.println("Error: " + e.getMessage());
         }
-
     }
 
     public static ArrayList<File> listJavaFiles(File pDirectory) {
@@ -192,10 +132,7 @@ public class FileUtilities {
         ArrayList<File> gitRepoDataFiles = new ArrayList();
         File[] fList = pDirectory.listFiles();
         if (fList != null) {
-            File[] var3 = fList;
-            int var4 = fList.length;
-            for (int var5 = 0; var5 < var4; ++var5) {
-                File file = var3[var5];
+            for (File file : fList) {
                 if (file.isFile()) {
                     if (file.getName().contains(".data")) {
                         gitRepoDataFiles.add(file);
@@ -206,7 +143,6 @@ public class FileUtilities {
                 }
             }
         }
-
         return gitRepoDataFiles;
     }
 
@@ -214,11 +150,7 @@ public class FileUtilities {
         ArrayList<File> gitRepoDataFiles = new ArrayList();
         File[] fList = pDirectory.listFiles();
         if (fList != null) {
-            File[] var3 = fList;
-            int var4 = fList.length;
-
-            for (int var5 = 0; var5 < var4; ++var5) {
-                File file = var3[var5];
+            for (File file : fList) {
                 if (file.isFile()) {
                     if (file.getName().contains("_issues")) {
                         gitRepoDataFiles.add(file);
@@ -229,7 +161,6 @@ public class FileUtilities {
                 }
             }
         }
-
         return gitRepoDataFiles;
     }
 
@@ -238,7 +169,6 @@ public class FileUtilities {
             if (!destFile.exists()) {
                 destFile.createNewFile();
             }
-
             FileChannel source = (new FileInputStream(sourceFile)).getChannel();
             FileChannel destination = (new FileOutputStream(destFile)).getChannel();
             if (source != null) {

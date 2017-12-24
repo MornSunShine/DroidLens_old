@@ -1,6 +1,7 @@
 package it.codeSmell.aDoctor.ui;
 
 import it.codeSmell.aDoctor.process.RunAndroidSmellDetection;
+import it.codeSmell.aDoctor.process.Utilities;
 import org.apache.commons.lang.StringUtils;
 import org.eclipse.core.runtime.CoreException;
 
@@ -75,38 +76,10 @@ public class MainUI extends JFrame {
         this.outputFolderButton.addActionListener(MainUI.this::folderButtonActionPerformed);
 
         this.codeSmells = new JCheckBox[15];
-        this.codeSmells[0] = new JCheckBox("DTWC", true);
-        this.codeSmells[1] = new JCheckBox("DR", true);
-        this.codeSmells[2] = new JCheckBox("DW", true);
-        this.codeSmells[3] = new JCheckBox("IDFP", true);
-        this.codeSmells[4] = new JCheckBox("IDS", true);
-        this.codeSmells[5] = new JCheckBox("ISQLQ", true);
-        this.codeSmells[6] = new JCheckBox("IGS", true);
-        this.codeSmells[7] = new JCheckBox("LIC", true);
-        this.codeSmells[8] = new JCheckBox("LT", true);
-        this.codeSmells[9] = new JCheckBox("MIM", true);
-        this.codeSmells[10] = new JCheckBox("NLMR", true);
-        this.codeSmells[11] = new JCheckBox("PD", true);
-        this.codeSmells[12] = new JCheckBox("RAM", true);
-        this.codeSmells[13] = new JCheckBox("SL", true);
-        this.codeSmells[14] = new JCheckBox("UC", true);
-
-        this.codeSmells[0].setToolTipText("Data Transmission Without Compression");
-        this.codeSmells[1].setToolTipText("Debuggable Release");
-        this.codeSmells[2].setToolTipText("Durable Wakelock");
-        this.codeSmells[3].setToolTipText("Inefficient Data Format and Parser");
-        this.codeSmells[4].setToolTipText("Inefficient Data Structure");
-        this.codeSmells[5].setToolTipText("Inefficient SQL Query");
-        this.codeSmells[6].setToolTipText("Internal Getter and Setter");
-        this.codeSmells[7].setToolTipText("Leaking Inner Class");
-        this.codeSmells[8].setToolTipText("Leaking Thread");
-        this.codeSmells[9].setToolTipText("Member Ignoring Method");
-        this.codeSmells[10].setToolTipText("No Low Memory Resolver");
-        this.codeSmells[11].setToolTipText("Public Data");
-        this.codeSmells[12].setToolTipText("Rigid Alarm Manager");
-        this.codeSmells[13].setToolTipText("Slow Loop");
-        this.codeSmells[14].setToolTipText("Unclosed Closable");
-
+        for (int i = 0; i < Utilities.CODES_MELL.length; i++) {
+            this.codeSmells[i] = new JCheckBox(Utilities.CODES_MELL[i], true);
+            this.codeSmells[i].setToolTipText(Utilities.DESCRIPTION[i]);
+        }
         this.statusLabel = new JTextArea();
         this.statusLabel.setEditable(false);
         this.statusLabel.setColumns(20);
@@ -246,7 +219,7 @@ public class MainUI extends JFrame {
         for (int i = 0; i < codeSmells.length; i++) {
             if (codeSmells[i].isSelected()) {
                 smellTypesNeeded[i] = 1;
-                ++numOfSmells;
+                numOfSmells++;
             }
         }
 
@@ -305,7 +278,7 @@ public class MainUI extends JFrame {
         try {
             UIManager.LookAndFeelInfo[] lookAndFeels = UIManager.getInstalledLookAndFeels();
             UIManager.setLookAndFeel(lookAndFeels[0].getClassName());
-            for (UIManager.LookAndFeelInfo info:lookAndFeels) {
+            for (UIManager.LookAndFeelInfo info : lookAndFeels) {
                 if (info.getName().equals("Windows")) {
                     UIManager.setLookAndFeel(info.getClassName());
                 }

@@ -14,9 +14,6 @@ public class PackageBean {
     private Collection<ClassBean> classes = new ArrayList();
     private String textContent;
 
-    public PackageBean() {
-    }
-
     public String getName() {
         return this.name;
     }

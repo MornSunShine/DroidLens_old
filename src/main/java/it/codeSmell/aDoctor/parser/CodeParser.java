@@ -15,9 +15,7 @@ public class CodeParser {
     private char[] charClass;
     private CompilationUnit unit;
     private ASTParser parser;
-
-    public CodeParser() {
-    }
+    public CodeParser(){}
 
     public CodeParser(String pClassToAnalyze) {
         this.charClass = pClassToAnalyze.toCharArray();
@@ -28,14 +26,14 @@ public class CodeParser {
         this.parser.setKind(8);
         this.parser.setSource(this.charClass);
         this.parser.setResolveBindings(true);
-        return (CompilationUnit)this.parser.createAST((IProgressMonitor)null);
+        return (CompilationUnit)this.parser.createAST(null);
     }
 
     public TypeDeclaration createParser(String pMethod, int pType) {
         this.parser = ASTParser.newParser(4);
         this.parser.setKind(pType);
         this.parser.setSource(pMethod.toCharArray());
-        return (TypeDeclaration)this.parser.createAST((IProgressMonitor)null);
+        return (TypeDeclaration)this.parser.createAST(null);
     }
 
     public CompilationUnit createParser(String pClass) {
@@ -43,7 +41,7 @@ public class CodeParser {
         this.parser.setKind(8);
         this.parser.setSource(pClass.toCharArray());
         this.parser.setResolveBindings(true);
-        return (CompilationUnit)this.parser.createAST((IProgressMonitor)null);
+        return (CompilationUnit)this.parser.createAST(null);
     }
 
     public CompilationUnit getCompilationUnit() {

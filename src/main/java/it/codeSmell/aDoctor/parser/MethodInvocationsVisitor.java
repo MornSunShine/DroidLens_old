@@ -16,9 +16,6 @@ import java.util.List;
 public class MethodInvocationsVisitor extends ASTVisitor {
     private final List<MethodInvocation> methods = new ArrayList();
 
-    public MethodInvocationsVisitor() {
-    }
-
     public boolean visit(MethodInvocation node) {
         this.methods.add(node);
         return super.visit(node);

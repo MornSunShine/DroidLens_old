@@ -33,33 +33,25 @@ public class MethodParser {
 
         Collection<String> names = new HashSet();
         pMethodNode.accept(new NameVisitor(names));
-        Collection<InstanceVariableBean> usedInstanceVariableBeans = getUsedInstanceVariable(names, pClassInstanceVariableBeans);
-        methodBean.setUsedInstanceVariables(usedInstanceVariableBeans);
+        Collection<InstanceVariableBean> usedInstanceVarBeans = getUsedInstanceVariable(names, pClassInstanceVariableBeans);
+        methodBean.setUsedInstanceVariables(usedInstanceVarBeans);
         Collection<String> invocations = new HashSet();
         pMethodNode.accept(new InvocationVisitor(invocations));
         Collection<MethodBean> invocationBeans = new ArrayList();
-        Iterator var7 = invocations.iterator();
-
-        while(var7.hasNext()) {
-            String invocation = (String)var7.next();
+        for(String invocation:invocations){
             invocationBeans.add(InvocationParser.parse(invocation));
         }
-
         methodBean.setMethodCalls(invocationBeans);
         return methodBean;
     }
 
     private static Collection<InstanceVariableBean> getUsedInstanceVariable(Collection<String> pNames, Collection<InstanceVariableBean> pClassInstanceVariableBeans) {
         Collection<InstanceVariableBean> usedInstanceVariableBeans = new ArrayList();
-        Iterator var3 = pClassInstanceVariableBeans.iterator();
-
-        while(var3.hasNext()) {
-            InstanceVariableBean classInstanceVariableBean = (InstanceVariableBean)var3.next();
+        for(InstanceVariableBean classInstanceVariableBean:pClassInstanceVariableBeans){
             if (pNames.remove(classInstanceVariableBean.getName())) {
                 usedInstanceVariableBeans.add(classInstanceVariableBean);
             }
         }
-
         return usedInstanceVariableBeans;
     }
 }

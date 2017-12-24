@@ -17,7 +17,7 @@ public class LeakingInnerClassRule implements CodeSmellRule{
                 return true;
             }
         }
-        return true;
+        return false;
     }
 
     @Override

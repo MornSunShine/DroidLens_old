@@ -17,7 +17,7 @@ public class TextAreaOutputStream extends OutputStream {
         this.textControl = control;
     }
 
-    public void write(int b) throws IOException {
+    public void write(int b){
         this.textControl.append(String.valueOf((char)b));
         this.textControl.update(this.textControl.getGraphics());
         this.textControl.setCaretPosition(this.textControl.getText().length() - 1);

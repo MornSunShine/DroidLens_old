@@ -15,14 +15,10 @@ import java.util.Collection;
 public class InnerClassVisitor extends ASTVisitor {
     private final Collection<TypeDeclaration> innerClasses = new ArrayList();
 
-    public InnerClassVisitor() {
-    }
-
     public boolean visit(TypeDeclaration typeDeclarationStatement) {
         if (!typeDeclarationStatement.isPackageMemberTypeDeclaration()) {
             this.innerClasses.add(typeDeclarationStatement);
         }
-
         return true;
     }
 
