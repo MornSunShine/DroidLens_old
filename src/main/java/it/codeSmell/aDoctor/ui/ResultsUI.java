@@ -115,7 +115,7 @@ public class ResultsUI extends JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
 //                return this.canEdit[columnIndex];
-                return false;
+                return true;
             }
         });
         this.smellTable.setColumnSelectionAllowed(true);

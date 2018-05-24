@@ -6,7 +6,7 @@ import it.codeSmell.aDoctor.beans.ClassBean;
  * Author: MaoMorn
  * Date: 2017/11/4
  * Time: 1:01
- * Description:
+ * Description: LT的检测规则
  */
 public class LeakingThreadRule implements CodeSmellRule{
     public boolean isLeakingThread(ClassBean pClass) {

@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
  * Author: MaoMorn
  * Date: 2017/11/4
  * Time: 1:00
- * Description:
+ * Description: IDFAP的检测规则
  */
 public class InefficientDataFormatAndParserRule implements CodeSmellRule {
 

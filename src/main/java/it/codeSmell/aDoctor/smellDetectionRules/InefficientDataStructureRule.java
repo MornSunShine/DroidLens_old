@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  * Author: MaoMorn
  * Date: 2017/11/4
  * Time: 1:00
- * Description:
+ * Description: IDS的检测规则
  */
 public class InefficientDataStructureRule implements CodeSmellRule {
     public boolean isInefficientDataStructure(ClassBean pClass) {

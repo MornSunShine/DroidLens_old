@@ -1,6 +1,7 @@
 package it.codeSmell.aDoctor.parser;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
@@ -22,23 +23,23 @@ public class CodeParser {
     }
 
     public CompilationUnit createParser() {
-        this.parser = ASTParser.newParser(4);
-        this.parser.setKind(8);
+        this.parser = ASTParser.newParser(AST.JLS8);
+        this.parser.setKind(ASTParser.K_COMPILATION_UNIT);
         this.parser.setSource(this.charClass);
         this.parser.setResolveBindings(true);
         return (CompilationUnit)this.parser.createAST(null);
     }
 
     public TypeDeclaration createParser(String pMethod, int pType) {
-        this.parser = ASTParser.newParser(4);
+        this.parser = ASTParser.newParser(AST.JLS8);
         this.parser.setKind(pType);
         this.parser.setSource(pMethod.toCharArray());
         return (TypeDeclaration)this.parser.createAST(null);
     }
 
     public CompilationUnit createParser(String pClass) {
-        this.parser = ASTParser.newParser(4);
-        this.parser.setKind(8);
+        this.parser = ASTParser.newParser(AST.JLS8);
+        this.parser.setKind(ASTParser.K_COMPILATION_UNIT);
         this.parser.setSource(pClass.toCharArray());
         this.parser.setResolveBindings(true);
         return (CompilationUnit)this.parser.createAST(null);

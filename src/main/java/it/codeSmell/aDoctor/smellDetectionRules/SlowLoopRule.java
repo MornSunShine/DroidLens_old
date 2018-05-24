@@ -11,7 +11,7 @@ import java.io.IOException;
  * Author: MaoMorn
  * Date: 2017/11/4
  * Time: 1:01
- * Description:
+ * Description: SL的检测规则
  */
 public class SlowLoopRule implements CodeSmellRule {
     public boolean isSlowLoop(ClassBean pClassBean) {

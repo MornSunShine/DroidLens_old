@@ -10,7 +10,7 @@ import java.util.Iterator;
  * Author: MaoMorn
  * Date: 2017/11/4
  * Time: 1:00
- * Description:
+ * Description: IGS的检测规则
  */
 public class InternalGetterSetterRule implements CodeSmellRule {
     public boolean isInternalGetterSetter(ClassBean pClass) {

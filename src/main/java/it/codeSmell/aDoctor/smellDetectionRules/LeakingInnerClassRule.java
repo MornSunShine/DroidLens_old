@@ -8,7 +8,7 @@ import java.util.Iterator;
  * Author: MaoMorn
  * Date: 2017/11/4
  * Time: 1:01
- * Description:
+ * Description: LIC的检测规则
  */
 public class LeakingInnerClassRule implements CodeSmellRule{
     public boolean isLeakingInnerClass(ClassBean pClass) {

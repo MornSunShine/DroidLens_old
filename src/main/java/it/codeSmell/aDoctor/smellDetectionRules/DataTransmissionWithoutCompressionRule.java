@@ -8,7 +8,7 @@ import java.io.IOException;
  * Author: MaoMorn
  * Date: 2017/11/4
  * Time: 0:59
- * Description:
+ * Description: DTWC的检测规则
  */
 public class DataTransmissionWithoutCompressionRule implements CodeSmellRule {
     public boolean isDataTransmissionWithoutCompression(ClassBean pClassBean) {

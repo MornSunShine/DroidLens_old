@@ -16,7 +16,7 @@ import java.util.regex.Pattern;
  * Author: MaoMorn
  * Date: 2017/11/4
  * Time: 1:01
- * Description:
+ * Description: NLMR的检测规则
  */
 public class NoLowMemoryResolverRule implements CodeSmellRule{
     private final List<String> onLowMemoryClassList = new ArrayList();

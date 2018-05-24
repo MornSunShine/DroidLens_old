@@ -2,6 +2,7 @@
 /target/ 
 /detectApp/
 /out/
+/res/
 /target/
 /.idea/
 *.iml

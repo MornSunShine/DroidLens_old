@@ -9,7 +9,7 @@ import java.util.Iterator;
  * Author: MaoMorn
  * Date: 2017/11/4
  * Time: 1:01
- * Description:
+ * Description: MIM的检测规则
  */
 public class MemberIgnoringMethodRule implements CodeSmellRule {
     public boolean isMemberIgnoringMethod(ClassBean pClass) {

@@ -68,9 +68,8 @@ public class RunAndroidSmellDetection {
             if (!project.isHidden()) {
                 ArrayList<PackageBean> packages = FolderToJavaProjectConverter.convert(project.getAbsolutePath());
                 for (PackageBean packageBean : packages) {
-                    ArrayList record;
+                    ArrayList record = new ArrayList();
                     for (ClassBean classBean : packageBean.getClasses()) {
-                        record = new ArrayList();
                         classBean = getAndroidManifest(classBean, project);
                         System.out.println("-- Analyzing class: " +
                                 classBean.getBelongingPackage() + "." +

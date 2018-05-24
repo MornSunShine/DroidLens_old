@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  * Author: MaoMorn
  * Date: 2017/11/4
  * Time: 1:03
- * Description:
+ * Description: SCC的检测规则
  */
 public class SetConfigChangesRule implements CodeSmellRule{
     public boolean isSetConfigChanges(ClassBean pClass) throws IOException {

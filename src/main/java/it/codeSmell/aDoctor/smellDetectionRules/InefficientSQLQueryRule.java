@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
  * Author: MaoMorn
  * Date: 2017/11/4
  * Time: 1:00
- * Description:
+ * Description: ISQL的检测规则
  */
 public class InefficientSQLQueryRule implements CodeSmellRule{
     public boolean isInefficientSQLQuery(ClassBean pClass) {

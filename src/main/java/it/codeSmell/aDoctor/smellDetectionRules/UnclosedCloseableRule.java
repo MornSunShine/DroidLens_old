@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  * Author: MaoMorn
  * Date: 2017/11/4
  * Time: 1:02
- * Description:
+ * Description: UC的检测规则
  */
 public class UnclosedCloseableRule implements CodeSmellRule {
     private final List<String> closeableClassList = new ArrayList();
