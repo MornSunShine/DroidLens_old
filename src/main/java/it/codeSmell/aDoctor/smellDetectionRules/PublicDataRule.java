@@ -12,19 +12,19 @@ import java.util.Iterator;
  * Description: PD的检测规则
  */
 public class PublicDataRule implements CodeSmellRule {
-    public boolean isPublicData(ClassBean pClass) {
+    public String isPublicData(ClassBean pClass) {
         for (MethodBean method : pClass.getMethods()) {
             String textContent = method.getTextContent();
             if (textContent.contains("Context.MODE_WORLD_WRITEABLE") ||
                     textContent.contains("Context.MODE_WORLD_READABLE")) {
-                return true;
+                return "1";
             }
         }
-        return false;
+        return "null";
     }
 
     @Override
-    public boolean parser(ClassBean pClass) {
+    public String parser(ClassBean pClass) {
         return isPublicData(pClass);
     }
 }

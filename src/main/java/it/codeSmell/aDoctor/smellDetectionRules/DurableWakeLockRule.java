@@ -14,19 +14,19 @@ import java.util.regex.Pattern;
  * Description: DWL的检测规则
  */
 public class DurableWakeLockRule implements CodeSmellRule{
-    public boolean isDurableWakeLock(ClassBean pClass) {
+    public String isDurableWakeLock(ClassBean pClass) {
         Pattern regex = Pattern.compile("(.*)acquire(\\s*)()", Pattern.MULTILINE);
         for (MethodBean method : pClass.getMethods()) {
             Matcher regexMatcher = regex.matcher(method.getTextContent());
             if (regexMatcher.find()) {
-                return true;
+                return "1";
             }
         }
-        return false;
+        return "null";
     }
 
     @Override
-    public boolean parser(ClassBean pClass) {
+    public String parser(ClassBean pClass) {
         return isDurableWakeLock(pClass);
     }
 }

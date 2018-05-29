@@ -17,24 +17,24 @@ import java.util.regex.Pattern;
  * Description: SCC的检测规则
  */
 public class SetConfigChangesRule implements CodeSmellRule{
-    public boolean isSetConfigChanges(ClassBean pClass) throws IOException {
+    public String isSetConfigChanges(ClassBean pClass) throws IOException {
         try {
             Pattern regex = Pattern.compile("(.*)android:configChanges(\\s*)=", Pattern.MULTILINE);
             for (Iterator str = FileUtils.lineIterator(pClass.getAndroidManifest()); str.hasNext(); ) {
                 String row = (String) str.next();
                 Matcher regexMatcher = regex.matcher(row);
                 if (regexMatcher.find()) {
-                    return true;
+                    return "1";
                 }
             }
         }catch (IOException e){
             e.printStackTrace();
         }
-        return false;
+        return "null";
     }
 
     @Override
-    public boolean parser(ClassBean pClass) {
-        return false;
+    public String parser(ClassBean pClass) {
+        return "null";
     }
 }

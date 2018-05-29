@@ -18,24 +18,24 @@ import java.util.regex.Pattern;
  */
 public class DebuggableReleaseRule implements CodeSmellRule {
 
-    public boolean isDebuggableRelease(ClassBean pClass) {
+    public String isDebuggableRelease(ClassBean pClass) {
         try {
             Pattern regex = Pattern.compile("(.*)android:debuggable(\\s*)=(\\s*)\"true\"", Pattern.MULTILINE);
             for (Iterator str = FileUtils.lineIterator(pClass.getAndroidManifest()); str.hasNext(); ) {
                 String row = (String) str.next();
                 Matcher regexMatcher = regex.matcher(row);
                 if (regexMatcher.find()) {
-                    return true;
+                    return "1";
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false;
+        return "null";
     }
 
     @Override
-    public boolean parser(ClassBean pClass) {
+    public String parser(ClassBean pClass) {
         return isDebuggableRelease(pClass);
     }
 }

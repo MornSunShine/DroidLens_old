@@ -13,16 +13,16 @@ import java.util.Iterator;
  * Description: IGS的检测规则
  */
 public class InternalGetterSetterRule implements CodeSmellRule {
-    public boolean isInternalGetterSetter(ClassBean pClass) {
+    public String isInternalGetterSetter(ClassBean pClass) {
         for (MethodBean method : pClass.getMethods()) {
             for (MethodBean call : method.getMethodCalls()) {
                 if (this.isGetterSetterMethod(call, pClass) &&
                         this.isInternalMethod(call, pClass)) {
-                    return true;
+                    return "1";
                 }
             }
         }
-        return false;
+        return "null";
     }
 
     private boolean isGetterSetterMethod(MethodBean pMethod, ClassBean pClass) {
@@ -45,7 +45,7 @@ public class InternalGetterSetterRule implements CodeSmellRule {
     }
 
     @Override
-    public boolean parser(ClassBean pClass) {
+    public String parser(ClassBean pClass) {
         return isInternalGetterSetter(pClass);
     }
 }

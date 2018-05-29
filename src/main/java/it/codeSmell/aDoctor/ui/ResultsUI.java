@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -35,8 +36,13 @@ public class ResultsUI extends JFrame {
     private JButton filterResultsButton;
     private JTable smellTable;
     private JButton goBack;
+    private List<SmellData> filteredDataList = new ArrayList();
     private String csvFile;
 
+    /**
+     * Result页面UI初始化，并设置CSV文件地址
+     * @param inputLocationPath 结果CSV文件地址
+     */
     public ResultsUI(String inputLocationPath) {
         this.initComponents();
         this.initLayout();
@@ -52,10 +58,17 @@ public class ResultsUI extends JFrame {
         }
     }
 
+    /**
+     * 从存储在本地的CSV文件中读取detector检测结果
+     * @param nameFilter 筛选列条件
+     * @return 提取的数据结果
+     * @throws IOException CSV读取异常
+     */
     private List<SmellData> filterData(String nameFilter) throws IOException {
         Reader in = new FileReader(this.csvFile);
         CSVParser records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(in);
         List<SmellData> smellDataList = new ArrayList();
+        filteredDataList.clear();
         for (CSVRecord record : records) {
             String className = record.get("Class");
             if (className.contains(nameFilter)) {
@@ -64,22 +77,27 @@ public class ResultsUI extends JFrame {
                     values.add(record.get(i));
                 }
                 smellDataList.add(new SmellData(className, values));
+                filteredDataList.add(new SmellData(className, values));
             }
         }
         return smellDataList;
     }
 
+    /**
+     * 更新Result页面的数据
+     * @param nameFilter 筛选的列条件
+     * @throws IOException CSV文件读取的异常
+     */
     private void updateTable(String nameFilter) throws IOException {
-        List<SmellData> filteredDataList = this.filterData(nameFilter);
+        this.filterData(nameFilter);
         DefaultTableModel model = (DefaultTableModel) this.smellTable.getModel();
         model.setRowCount(0);
         this.smellTable.setAutoCreateRowSorter(true);
-
         for (SmellData filteredData : filteredDataList) {
             Object[] rowData = new Object[filteredData.getValues().size() + 1];
             rowData[0] = filteredData.getClassName();
             for (int i = 0; i < filteredData.getValues().size(); i++) {
-                rowData[i + 1] = filteredData.getValues().get(i);
+                rowData[i + 1] =filteredData.getValues().get(i).split(";").length;
             }
             model.addRow(rowData);
         }
@@ -104,7 +122,24 @@ public class ResultsUI extends JFrame {
         this.filterResultsButton = new JButton("Filter Results", filterImage);
         this.filterResultsButton.addActionListener(ResultsUI.this::filterResultsButtonActionPerformed);
 
-        this.smellTable = new JTable();
+        this.smellTable = new JTable(){
+            public String getToolTipText(MouseEvent e) {
+                int row=this.rowAtPoint(e.getPoint());
+                int col=this.columnAtPoint(e.getPoint());
+                String tip=null;
+                if(row>-1 && col>-1){
+//                    Object value=this.getValueAt(row, col);
+//                    if(null!=value && !"".equals(value))
+//                        tip=value.toString();//悬浮显示单元格内容
+                    if(0==col){
+                        tip=filteredDataList.get(row).getClassName();
+                    }else{
+                        tip=filteredDataList.get(row).getValues().get(col-1);
+                    }
+                }
+                return tip;
+            }
+        };
         this.smellTable.setModel(new DefaultTableModel(new Object[0][], RunAndroidSmellDetection.FILE_HEADER) {
             Class[] types = ResultsUI.this.TABLE_TYPES;
             boolean[] canEdit = {false, false, false};

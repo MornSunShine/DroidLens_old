@@ -9,12 +9,12 @@ import it.codeSmell.aDoctor.beans.ClassBean;
  * Description: LT的检测规则
  */
 public class LeakingThreadRule implements CodeSmellRule{
-    public boolean isLeakingThread(ClassBean pClass) {
-        return pClass.getTextContent().contains("run()") && !pClass.getTextContent().contains("stop()");
+    public String isLeakingThread(ClassBean pClass) {
+        return String.valueOf(pClass.getTextContent().contains("run()") && !pClass.getTextContent().contains("stop()"));
     }
 
     @Override
-    public boolean parser(ClassBean pClass) {
+    public String parser(ClassBean pClass) {
         return isLeakingThread(pClass);
     }
 }

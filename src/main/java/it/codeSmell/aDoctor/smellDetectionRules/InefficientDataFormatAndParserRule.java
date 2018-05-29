@@ -14,10 +14,10 @@ import java.util.regex.Pattern;
  */
 public class InefficientDataFormatAndParserRule implements CodeSmellRule {
 
-    public boolean isInefficientDataFormatAndParser(ClassBean pClass) {
+    public String isInefficientDataFormatAndParser(ClassBean pClass) {
         for (String importedResource : pClass.getImports()) {
             if (importedResource.equals("javax.xml.parsers.DocumentBuilder")) {
-                return true;
+                return "1";
             }
         }
 
@@ -25,14 +25,14 @@ public class InefficientDataFormatAndParserRule implements CodeSmellRule {
         for (MethodBean methodBean : pClass.getMethods()) {
             Matcher regexMatcher = regex.matcher(methodBean.getTextContent());
             if (regexMatcher.find()) {
-                return true;
+                return "1";
             }
         }
-        return false;
+        return "0";
     }
 
     @Override
-    public boolean parser(ClassBean pClass) {
+    public String parser(ClassBean pClass) {
         return isInefficientDataFormatAndParser(pClass);
     }
 }

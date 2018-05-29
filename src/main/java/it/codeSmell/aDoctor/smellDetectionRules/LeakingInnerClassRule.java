@@ -11,17 +11,17 @@ import java.util.Iterator;
  * Description: LIC的检测规则
  */
 public class LeakingInnerClassRule implements CodeSmellRule{
-    public boolean isLeakingInnerClass(ClassBean pClass) {
+    public String isLeakingInnerClass(ClassBean pClass) {
         for(ClassBean inner:pClass.getInnerClasses()){
             if(!inner.isStatic()){
-                return true;
+                return "1";
             }
         }
-        return false;
+        return "null";
     }
 
     @Override
-    public boolean parser(ClassBean pClass) {
+    public String parser(ClassBean pClass) {
         return isLeakingInnerClass(pClass);
     }
 }

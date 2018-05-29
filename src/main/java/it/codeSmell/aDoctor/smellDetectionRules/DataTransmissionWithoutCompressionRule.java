@@ -11,12 +11,12 @@ import java.io.IOException;
  * Description: DTWC的检测规则
  */
 public class DataTransmissionWithoutCompressionRule implements CodeSmellRule {
-    public boolean isDataTransmissionWithoutCompression(ClassBean pClassBean) {
-        return pClassBean.getTextContent().contains("File ") && !pClassBean.getTextContent().contains("zip");
+    public String isDataTransmissionWithoutCompression(ClassBean pClassBean) {
+        return String.valueOf(pClassBean.getTextContent().contains("File ") && !pClassBean.getTextContent().contains("zip"));
     }
 
     @Override
-    public boolean parser(ClassBean pClass) {
+    public String parser(ClassBean pClass) {
         return isDataTransmissionWithoutCompression(pClass);
     }
 }

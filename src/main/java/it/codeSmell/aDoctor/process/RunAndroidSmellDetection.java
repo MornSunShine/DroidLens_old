@@ -1,7 +1,10 @@
 package it.codeSmell.aDoctor.process;
 
+import com.google.gson.Gson;
 import it.codeSmell.aDoctor.beans.ClassBean;
+import it.codeSmell.aDoctor.beans.ClassSmellBean;
 import it.codeSmell.aDoctor.beans.PackageBean;
+import it.codeSmell.aDoctor.beans.ProjectSmellBean;
 import it.codeSmell.aDoctor.smellDetectionRules.*;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
@@ -54,7 +57,7 @@ public class RunAndroidSmellDetection {
 
         for (int i = 0; i < smellsNeeded.length(); i++) {
             if (smellsNeeded.charAt(i) == '1') {
-                FILE_HEADER[headerCounter] = Utilities.CODES_MELL[i];
+                FILE_HEADER[headerCounter] = Utilities.CODES_SMELL[i];
                 headerCounter++;
             }
         }
@@ -64,31 +67,41 @@ public class RunAndroidSmellDetection {
         CSVPrinter csvFilePrinter = new CSVPrinter(fileWriter, csvFileFormat);
 
         csvFilePrinter.printRecord(FILE_HEADER);
+        String projectName=experimentDirectory.getName();
+        ArrayList<ClassSmellBean> classSmellBeans=new ArrayList<>();
         for(File project:experimentDirectory.listFiles()){
             if (!project.isHidden()) {
                 ArrayList<PackageBean> packages = FolderToJavaProjectConverter.convert(project.getAbsolutePath());
                 for (PackageBean packageBean : packages) {
                     ArrayList record = new ArrayList();
+                    HashMap<String,String> classSmells;
                     for (ClassBean classBean : packageBean.getClasses()) {
+                        record.clear();
                         classBean = getAndroidManifest(classBean, project);
-                        System.out.println("-- Analyzing class: " +
-                                classBean.getBelongingPackage() + "." +
-                                classBean.getName());
-                        record.add(classBean.getBelongingPackage() + "." + classBean.getName());
+                        String className=classBean.getBelongingPackage() + "." + classBean.getName();
+                        classSmells= new HashMap<>();
+                        System.out.println("-- Analyzing class: " + className);
+                        record.add(className);
                         for (int i = 0; i < 15; i++) {
                             if (smellsNeeded.charAt(i) == '1') {
-                                if (rules[i].parser(classBean)) {
-                                    record.add("1");
-                                } else {
-                                    record.add("0");
-                                }
+                                String parserResult=rules[i].parser(classBean);
+                                record.add(parserResult);
+                                classSmells.put(Utilities.CODES_SMELL[i],parserResult);
+//                                if (rules[i].parser(classBean)) {
+//                                    record.add("1");
+//                                } else {
+//                                    record.add("0");
+//                                }
                             }
                         }
+                        classSmellBeans.add(new ClassSmellBean(className,classSmells));
                         csvFilePrinter.printRecord(record);
                     }
                 }
             }
         }
+        String jsonString=new Gson().toJson(new ProjectSmellBean(projectName,classSmellBeans));
+        Utilities.createJsonFile(jsonString,"E:\\IdeaProjects\\aDoctor\\res",projectName);
 
         csvFilePrinter.close();
 

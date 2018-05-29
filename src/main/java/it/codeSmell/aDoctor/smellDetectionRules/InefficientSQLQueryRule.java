@@ -14,10 +14,10 @@ import java.util.regex.Pattern;
  * Description: ISQL的检测规则
  */
 public class InefficientSQLQueryRule implements CodeSmellRule{
-    public boolean isInefficientSQLQuery(ClassBean pClass) {
+    public String isInefficientSQLQuery(ClassBean pClass) {
         for(String importString:pClass.getImports()){
             if(importString.contains("java.sql")){
-                return true;
+                return "1";
             }
         }
 
@@ -25,14 +25,14 @@ public class InefficientSQLQueryRule implements CodeSmellRule{
         for(MethodBean method:pClass.getMethods()){
             Matcher regexMatcher = regex.matcher(method.getTextContent());
             if (regexMatcher.find()) {
-                return true;
+                return "1";
             }
         }
-        return false;
+        return "null";
     }
 
     @Override
-    public boolean parser(ClassBean pClass) {
+    public String parser(ClassBean pClass) {
         return isInefficientSQLQuery(pClass);
     }
 }

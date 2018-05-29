@@ -12,22 +12,22 @@ import java.util.Iterator;
  * Description: RAM的检测规则
  */
 public class RigidAlarmManagerRule implements CodeSmellRule{
-    public boolean isRigidAlarmManager(ClassBean pClass) {
+    public String isRigidAlarmManager(ClassBean pClass) {
         for(MethodBean method:pClass.getMethods()){
             if(method.getTextContent().contains("AlarmManager")){
-                return true;
+                return "1";
             }
             for(MethodBean call:method.getMethodCalls()){
                 if(call.getName().equals("setRepeating")){
-                    return true;
+                    return "1";
                 }
             }
         }
-        return false;
+        return "null";
     }
 
     @Override
-    public boolean parser(ClassBean pClass) {
+    public String parser(ClassBean pClass) {
         return isRigidAlarmManager(pClass);
     }
 }

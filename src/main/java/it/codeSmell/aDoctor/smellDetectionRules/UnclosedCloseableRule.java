@@ -55,7 +55,7 @@ public class UnclosedCloseableRule implements CodeSmellRule {
     }
 
     @Override
-    public boolean parser(ClassBean pClass) {
-        return false;
+    public String parser(ClassBean pClass) {
+        return "null";
     }
 }

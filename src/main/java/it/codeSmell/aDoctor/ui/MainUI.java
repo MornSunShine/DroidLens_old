@@ -76,8 +76,8 @@ public class MainUI extends JFrame {
         this.outputFolderButton.addActionListener(MainUI.this::folderButtonActionPerformed);
 
         this.codeSmells = new JCheckBox[15];
-        for (int i = 0; i < Utilities.CODES_MELL.length; i++) {
-            this.codeSmells[i] = new JCheckBox(Utilities.CODES_MELL[i], true);
+        for (int i = 0; i < Utilities.CODES_SMELL.length; i++) {
+            this.codeSmells[i] = new JCheckBox(Utilities.CODES_SMELL[i], true);
             this.codeSmells[i].setToolTipText(Utilities.DESCRIPTION[i]);
         }
         this.statusLabel = new JTextArea();

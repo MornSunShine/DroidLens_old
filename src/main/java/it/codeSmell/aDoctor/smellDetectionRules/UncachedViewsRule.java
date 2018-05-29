@@ -10,7 +10,7 @@ import it.codeSmell.aDoctor.beans.ClassBean;
  */
 public class UncachedViewsRule implements CodeSmellRule {
     @Override
-    public boolean parser(ClassBean pClass) {
-        return false;
+    public String parser(ClassBean pClass) {
+        return "null";
     }
 }

@@ -9,5 +9,5 @@ import it.codeSmell.aDoctor.beans.ClassBean;
  * Description: CodeSmellRule定义接口
  */
 public interface CodeSmellRule {
-    boolean parser(ClassBean pClass);
+    String parser(ClassBean pClass);
 }

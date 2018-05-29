@@ -12,19 +12,19 @@ import java.util.Iterator;
  * Description: MIM的检测规则
  */
 public class MemberIgnoringMethodRule implements CodeSmellRule {
-    public boolean isMemberIgnoringMethod(ClassBean pClass) {
+    public String isMemberIgnoringMethod(ClassBean pClass) {
         for (MethodBean method : pClass.getMethods()) {
             if (!method.isStatic() &&
                     pClass.getInstanceVariables().size() > 0 &&
                     method.getUsedInstanceVariables().isEmpty()) {
-                return true;
+                return "1";
             }
         }
-        return false;
+        return "null";
     }
 
     @Override
-    public boolean parser(ClassBean pClass) {
+    public String parser(ClassBean pClass) {
         return isMemberIgnoringMethod(pClass);
     }
 }

@@ -12,14 +12,14 @@ import java.util.regex.Pattern;
  * Description: IDS的检测规则
  */
 public class InefficientDataStructureRule implements CodeSmellRule {
-    public boolean isInefficientDataStructure(ClassBean pClass) {
+    public String isInefficientDataStructure(ClassBean pClass) {
         Pattern regex = Pattern.compile("(.*)HashMap<(\\s*)(Integer|Long)(\\s*),(\\s*)(.+)(\\s*)>", Pattern.MULTILINE);
         Matcher regexMatcher = regex.matcher(pClass.getTextContent());
-        return regexMatcher.find();
+        return String.valueOf(regexMatcher.find());
     }
 
     @Override
-    public boolean parser(ClassBean pClass) {
+    public String parser(ClassBean pClass) {
         return isInefficientDataStructure(pClass);
     }
 }

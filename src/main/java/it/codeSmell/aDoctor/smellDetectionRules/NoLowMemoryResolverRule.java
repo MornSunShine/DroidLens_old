@@ -31,15 +31,15 @@ public class NoLowMemoryResolverRule implements CodeSmellRule{
         br.close();
     }
 
-    public boolean isNoLowMemoryResolver(ClassBean pClass) {
+    public String isNoLowMemoryResolver(ClassBean pClass) {
         if (this.inheritsOnLowMemoryMethod(pClass)) {
             Pattern regex = Pattern.compile("onLowMemory", Pattern.MULTILINE);
             Matcher regexMatcher = regex.matcher(pClass.getTextContent());
             if (!regexMatcher.find()) {
-                return true;
+                return "1";
             }
         }
-        return false;
+        return "null";
     }
 
     private boolean inheritsOnLowMemoryMethod(ClassBean pClass) {
@@ -54,7 +54,7 @@ public class NoLowMemoryResolverRule implements CodeSmellRule{
     }
 
     @Override
-    public boolean parser(ClassBean pClass) {
+    public String parser(ClassBean pClass) {
         return isNoLowMemoryResolver(pClass);
     }
 }
