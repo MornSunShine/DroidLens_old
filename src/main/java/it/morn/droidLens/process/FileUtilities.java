@@ -138,9 +138,9 @@ public class FileUtilities {
     }
 
     /**
-     *
-     * @param pDirectory
-     * @return
+     * 获取java文件列表
+     * @param pDirectory 目标目录文件
+     * @return java文件列表
      */
     public static ArrayList<File> listJavaFiles(File pDirectory) {
         ArrayList<File> javaFiles = new ArrayList();
@@ -161,9 +161,9 @@ public class FileUtilities {
     }
 
     /**
-     *
-     * @param pDirectory
-     * @return
+     * 获取git仓库数据文件列表
+     * @param pDirectory 目标目录
+     * @return git仓库数据文件列表
      */
     public static ArrayList<File> listRepositoryDataFiles(File pDirectory) {
         ArrayList<File> gitRepoDataFiles = new ArrayList();
@@ -184,9 +184,9 @@ public class FileUtilities {
     }
 
     /**
-     *
-     * @param pDirectory
-     * @return
+     * 获取git仓库问题文件列表
+     * @param pDirectory 目标目录
+     * @return 仓库问题文件列表
      */
     public static ArrayList<File> listIssueFiles(File pDirectory) {
         ArrayList<File> gitRepoDataFiles = new ArrayList();
@@ -207,10 +207,10 @@ public class FileUtilities {
     }
 
     /**
-     *
-     * @param sourceFile
-     * @param destFile
-     * @throws IOException
+     * 复制文件
+     * @param sourceFile 源文件
+     * @param destFile 目标文件
+     * @throws IOException 读取写入异常
      */
     public static void copyFile(File sourceFile, File destFile) throws IOException {
         if (sourceFile.exists()) {
