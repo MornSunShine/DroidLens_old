@@ -25,10 +25,10 @@ import java.util.LinkedList;
  */
 public class FolderToJavaProjectConverter {
     /**
-     *
-     * @param pPath
-     * @return
-     * @throws IOException
+     * 提取目录下的所有类
+     * @param pPath 目录路径
+     * @return 类列表
+     * @throws IOException 读取异常
      */
     public static ArrayList<ClassBean> extractClasses(String pPath) throws IOException {
         ArrayList<ClassBean> system = new ArrayList();
@@ -110,19 +110,19 @@ public class FolderToJavaProjectConverter {
     }
 
     /**
-     *
-     * @param pDirectory
-     * @return
+     * 获取目录下的所有java文件
+     * @param pDirectory 目标目录
+     * @return 搜集的java文件列表
      */
     private static ArrayList<File> listJavaFiles(File pDirectory) {
         return  (ArrayList<File>) FileUtils.listFiles(pDirectory, FileFilterUtils.suffixFileFilter("java"), TrueFileFilter.INSTANCE);
     }
 
     /**
-     *
-     * @param pPackageName
-     * @param pPackages
-     * @return
+     * 包列表中包含指定包判断
+     * @param pPackageName 包名
+     * @param pPackages 包列表
+     * @return 包含判断结果
      */
     private static boolean isAlreadyCreated(String pPackageName, ArrayList<PackageBean> pPackages) {
         for (PackageBean pb : pPackages) {
@@ -134,10 +134,10 @@ public class FolderToJavaProjectConverter {
     }
 
     /**
-     *
-     * @param pPackageName
-     * @param pPackages
-     * @return
+     * 从列表中寻找指定包
+     * @param pPackageName 包名
+     * @param pPackages 包列表
+     * @return 需求的包对象
      */
     private static PackageBean getPackageByName(String pPackageName, ArrayList<PackageBean> pPackages) {
         for (PackageBean pb : pPackages) {
@@ -169,11 +169,17 @@ public class FolderToJavaProjectConverter {
      * @param project 项目目录
      * @return AndroidManifest.xml列表
      */
-    public static ArrayList<File> getAndroidManifests(File project){
-        return (ArrayList<File>) FileUtils.
-                listFiles(project, FileFilterUtils.nameFileFilter("AndroidManifest.xml"), TrueFileFilter.INSTANCE);
+    public static Collection<File> getAndroidManifests(File project){
+        return FileUtils.listFiles(project, FileFilterUtils.nameFileFilter("AndroidManifest.xml"), TrueFileFilter.INSTANCE);
     }
 
+    /**
+     * 递归搜集指定目录下所有给定名称的文件
+     * @param list 文件列表
+     * @param dir 目标目录
+     * @param fileName 目标文件名称
+     * @return 搜集的文件列表
+     */
     public static ArrayList<File> getAndroidManifests(ArrayList<File> list,File dir,String fileName){
         File file=new File(dir.getAbsolutePath()+"\\"+fileName);
         if(file.exists()){
@@ -188,6 +194,12 @@ public class FolderToJavaProjectConverter {
         return list;
     }
 
+    /**
+     * 非递归遍历目录下所有文件，搜集指定名称文件
+     * @param dir 目标目录
+     * @param fileName 目标文件名
+     * @return 搜集的文件列表
+     */
     public static ArrayList<File> getAndroidManifests(File dir,String fileName){
         LinkedList<File> dirs=new LinkedList<>();
         ArrayList<File> list=new ArrayList<>();
