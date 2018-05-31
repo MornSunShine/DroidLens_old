@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <rules>
+        <rule>DataTransmissionWithoutCompressionRule</rule>
+        <rule>DebuggableReleaseRule</rule>
+        <rule>DurableWakeLockRule</rule>
+        <rule>InefficientDataFormatAndParserRule</rule>
+        <rule>InefficientDataStructureRule</rule>
+        <rule>InefficientSQLQueryRule</rule>
+        <rule>InternalGetterSetterRule</rule>
+        <rule>LeakingInnerClassRule</rule>
+        <rule>LeakingThreadRule</rule>
+        <rule>MemberIgnoringMethodRule</rule>
+        <rule>NoLowMemoryResolverRule</rule>
+        <rule>PublicDataRule</rule>
+        <rule>RigidAlarmManagerRule</rule>
+        <rule>SlowLoopRule</rule>
+        <rule>UnclosedCloseableRule</rule>
+        <!--未实现
+        <rule>BulkDataTransferOnSlowNetworkRule</rule>
+        <rule>DroppedDataRule</rule>
+        <rule>EarlyResourceBindingRule</rule>
+        <rule>InterruptingFromBackgroundRule</rule>
+        <rule>NestedLayoutRule</rule>
+        <rule>NetworkIOOperationsInMainThreadRule</rule>
+        <rule>NotDescriptionUIRule</rule>
+        <rule>OverdrawnPixelRule</rule>
+        <rule>ProhibitedDataTransferRule</rule>
+        <rule>SetConfigChangesRule</rule>
+        <rule>TrackingHardwareIdRule</rule>
+        <rule>UncachedViewsRule</rule>
+        <rule>UncontrolledFocusOrderRule</rule>
+        <rule>UnnecessaryPermissionRule</rule>
+        <rule>UntohuchableRule</rule>
+        -->
+    </rules>
+</root>

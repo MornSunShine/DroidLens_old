@@ -4,10 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>it.unisa</groupId>
-    <artifactId>aDoctor</artifactId>
+    <groupId>it.morn</groupId>
+    <artifactId>droidLens</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>aDoctor</name>
+    <name>DroidLens</name>
     <packaging>jar</packaging>
 
     <properties>
@@ -48,6 +48,12 @@
             <artifactId>gson</artifactId>
             <version>2.8.0</version>
         </dependency>
+        <!-- xml解析 -->
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -58,7 +64,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>it.codeSmell.aDoctor.ui.MainUI</mainClass>
+                            <mainClass>it.morn.droidLens.ui.MainUI</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
