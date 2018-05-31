@@ -70,8 +70,11 @@ public class Test {
         System.out.println(end-start);
 //对比测试样例**************************三三三
         start=System.currentTimeMillis();
-
-
+//        link=(LinkedList<File>) FolderToJavaProjectConverter.getAndroidManifests(dir);
+//        System.out.println(link.size());
+//        for(File file:link){
+//            System.out.println(file.getAbsolutePath());
+//        }
 
         end=System.currentTimeMillis();
         System.out.println(end-start);
